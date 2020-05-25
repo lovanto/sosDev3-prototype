@@ -3,6 +3,8 @@ package com.lovanto.sosdev.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +42,29 @@ class MainActivity : AppCompatActivity() {
         recyclerViewConfig()
         searchData()
         getDataGit()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.options_menu, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.favouriteMenu -> {
+                val i = Intent(this, DetailActivity::class.java)
+                startActivity(i)
+                return true
+            }
+            R.id.settingMenu -> {
+                val i = Intent(this, DetailActivity::class.java)
+                startActivity(i)
+                return true
+            }
+            else -> return true
+        }
     }
 
     private fun searchData() {
