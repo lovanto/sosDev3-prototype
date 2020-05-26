@@ -21,7 +21,7 @@
         tools:ignore="AllowBackup">
 
         <provider
-            android:name=".FavouriteProvider"
+            android:name=".provider.FavouriteProvider"
             android:authorities="com.lovanto.sosdev"
             android:enabled="true"
             android:exported="true"
