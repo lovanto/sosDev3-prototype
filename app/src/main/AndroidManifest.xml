@@ -4,6 +4,12 @@
     package="com.lovanto.sosdev">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission
+        android:name="com.lovanto.sosdev.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.lovanto.sosdev.WRITE_DATABASE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +19,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
-        <activity android:name=".view.FavActivity"></activity>
+
+        <provider
+            android:name=".FavouriteProvider"
+            android:authorities="com.lovanto.sosdev"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.lovanto.sosdev.READ_DATABASE"
+            android:writePermission="com.lovanto.sosdev.WRITE_DATABASE"/>
+
+        <activity android:name=".view.FavActivity" />
         <activity android:name=".view.DetailActivity" />
         <activity android:name=".view.MainActivity">
             <intent-filter>
