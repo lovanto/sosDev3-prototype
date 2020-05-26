@@ -14,6 +14,10 @@ class DetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val EXTRA_NOTE = "extra_note"
+        const val EXTRA_POSITION = "extra_position"
+        const val REQUEST_ADD = 100
+        const val REQUEST_UPDATE = 200
     }
 
     @SuppressLint("SetTextI18n")

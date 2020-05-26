@@ -3,7 +3,7 @@ package com.lovanto.sosdev.db
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.TABLE_NAME
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.TABLE_NAME
 
 internal class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -14,15 +14,15 @@ internal class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
         private const val DATABASE_VERSION = 1
 
         private val SQL_CREATE_TABLE_NOTE = "CREATE TABLE $TABLE_NAME" +
-                " ${DatabaseSosDev.NoteColumns.USERNAME} TEXT PRIMARY KEY  NOT NULL," +
-                " ${DatabaseSosDev.NoteColumns.NAME} TEXT NOT NULL," +
-                " ${DatabaseSosDev.NoteColumns.AVATAR} TEXT NOT NULL," +
-                " ${DatabaseSosDev.NoteColumns.COMPANY} TEXT NOT NULL," +
-                " ${DatabaseSosDev.NoteColumns.LOCATION} TEXT NOT NULL," +
-                " ${DatabaseSosDev.NoteColumns.REPOSITORY} INTEGER NOT NULL," +
-                " ${DatabaseSosDev.NoteColumns.FOLLOWERS} INTEGER NOT NULL," +
-                " ${DatabaseSosDev.NoteColumns.FOLLOWING} INTEGER NOT NULL)" +
-                " ${DatabaseSosDev.NoteColumns.FAVOURITE} TEXT NOT NULL,"
+                " ${DatabaseSosDev.FavColumns.USERNAME} TEXT PRIMARY KEY  NOT NULL," +
+                " ${DatabaseSosDev.FavColumns.NAME} TEXT NOT NULL," +
+                " ${DatabaseSosDev.FavColumns.AVATAR} TEXT NOT NULL," +
+                " ${DatabaseSosDev.FavColumns.COMPANY} TEXT NOT NULL," +
+                " ${DatabaseSosDev.FavColumns.LOCATION} TEXT NOT NULL," +
+                " ${DatabaseSosDev.FavColumns.REPOSITORY} INTEGER NOT NULL," +
+                " ${DatabaseSosDev.FavColumns.FOLLOWERS} INTEGER NOT NULL," +
+                " ${DatabaseSosDev.FavColumns.FOLLOWING} INTEGER NOT NULL)" +
+                " ${DatabaseSosDev.FavColumns.FAVOURITE} TEXT NOT NULL,"
     }
 
     override fun onCreate(db: SQLiteDatabase) {

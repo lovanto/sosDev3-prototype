@@ -8,7 +8,7 @@ object DatabaseSosDev {
     const val AUTHORITY = "com.lovanto.sosdev"
     const val SCHEME = "content"
 
-    class NoteColumns : BaseColumns {
+    class FavColumns : BaseColumns {
 
         companion object {
             const val TABLE_NAME = "favourite"

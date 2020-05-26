@@ -5,16 +5,16 @@ import android.content.Context
 import android.database.Cursor
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.AVATAR
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.COMPANY
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.FAVOURITE
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.FOLLOWERS
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.FOLLOWING
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.LOCATION
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.NAME
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.REPOSITORY
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.TABLE_NAME
-import com.lovanto.sosdev.db.DatabaseSosDev.NoteColumns.Companion.USERNAME
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.AVATAR
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.COMPANY
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.FAVOURITE
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.FOLLOWERS
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.FOLLOWING
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.LOCATION
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.NAME
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.REPOSITORY
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.TABLE_NAME
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.USERNAME
 import com.lovanto.sosdev.model.Favourite
 import java.util.*
 
@@ -86,21 +86,21 @@ class FavouriteHelper(context: Context) {
         val cursor = database.query(DATABASE_TABLE, null, null, null, null, null,
                 "$USERNAME DESC", null)
         cursor.moveToFirst()
-        var note: Favourite
+        var fav: Favourite
         if (cursor.count > 0) {
             do {
-                note = Favourite()
-                note.username = cursor.getString(cursor.getColumnIndexOrThrow(USERNAME))
-                note.name = cursor.getString(cursor.getColumnIndexOrThrow(NAME))
-                note.avatar = cursor.getString(cursor.getColumnIndexOrThrow(AVATAR))
-                note.company = cursor.getString(cursor.getColumnIndexOrThrow(COMPANY))
-                note.location = cursor.getString(cursor.getColumnIndexOrThrow(LOCATION))
-                note.repository = cursor.getInt(cursor.getColumnIndexOrThrow(REPOSITORY))
-                note.followers = cursor.getInt(cursor.getColumnIndexOrThrow(FOLLOWERS))
-                note.following = cursor.getInt(cursor.getColumnIndexOrThrow(FOLLOWING))
-                note.fav = cursor.getString(cursor.getColumnIndexOrThrow(FAVOURITE))
+                fav = Favourite()
+                fav.username = cursor.getString(cursor.getColumnIndexOrThrow(USERNAME))
+                fav.name = cursor.getString(cursor.getColumnIndexOrThrow(NAME))
+                fav.avatar = cursor.getString(cursor.getColumnIndexOrThrow(AVATAR))
+                fav.company = cursor.getString(cursor.getColumnIndexOrThrow(COMPANY))
+                fav.location = cursor.getString(cursor.getColumnIndexOrThrow(LOCATION))
+                fav.repository = cursor.getInt(cursor.getColumnIndexOrThrow(REPOSITORY))
+                fav.followers = cursor.getInt(cursor.getColumnIndexOrThrow(FOLLOWERS))
+                fav.following = cursor.getInt(cursor.getColumnIndexOrThrow(FOLLOWING))
+                fav.fav = cursor.getString(cursor.getColumnIndexOrThrow(FAVOURITE))
 
-                arrayList.add(note)
+                arrayList.add(fav)
                 cursor.moveToNext()
 
             } while (!cursor.isAfterLast)
@@ -109,32 +109,32 @@ class FavouriteHelper(context: Context) {
         return arrayList
     }
 
-    fun insertFav(note: Favourite): Long {
+    fun insertFav(fav: Favourite): Long {
         val args = ContentValues()
-        args.put(USERNAME, note.username)
-        args.put(NAME, note.name)
-        args.put(AVATAR, note.avatar)
-        args.put(COMPANY, note.company)
-        args.put(LOCATION, note.location)
-        args.put(REPOSITORY, note.repository)
-        args.put(FOLLOWERS, note.followers)
-        args.put(FOLLOWING, note.following)
-        args.put(FAVOURITE, note.fav)
+        args.put(USERNAME, fav.username)
+        args.put(NAME, fav.name)
+        args.put(AVATAR, fav.avatar)
+        args.put(COMPANY, fav.company)
+        args.put(LOCATION, fav.location)
+        args.put(REPOSITORY, fav.repository)
+        args.put(FOLLOWERS, fav.followers)
+        args.put(FOLLOWING, fav.following)
+        args.put(FAVOURITE, fav.fav)
         return database.insert(DATABASE_TABLE, null, args)
     }
 
-    fun updateFav(note: Favourite): Int {
+    fun updateFav(fav: Favourite): Int {
         val args = ContentValues()
-        args.put(USERNAME, note.username)
-        args.put(NAME, note.name)
-        args.put(AVATAR, note.avatar)
-        args.put(COMPANY, note.company)
-        args.put(LOCATION, note.location)
-        args.put(REPOSITORY, note.repository)
-        args.put(FOLLOWERS, note.followers)
-        args.put(FOLLOWING, note.following)
-        args.put(FAVOURITE, note.fav)
-        return database.update(DATABASE_TABLE, args, USERNAME + "= '" + note.username + "'", null)
+        args.put(USERNAME, fav.username)
+        args.put(NAME, fav.name)
+        args.put(AVATAR, fav.avatar)
+        args.put(COMPANY, fav.company)
+        args.put(LOCATION, fav.location)
+        args.put(REPOSITORY, fav.repository)
+        args.put(FOLLOWERS, fav.followers)
+        args.put(FOLLOWING, fav.following)
+        args.put(FAVOURITE, fav.fav)
+        return database.update(DATABASE_TABLE, args, USERNAME + "= '" + fav.username + "'", null)
     }
 
     fun deleteNote(id: String): Int {
