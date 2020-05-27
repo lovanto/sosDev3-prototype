@@ -116,13 +116,8 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         val checked : Int = R.drawable.ic_favorite_black_24dp
         val unChecked : Int = R.drawable.ic_favorite_border_black_24dp
         if (view.id == R.id.btn_fav) {
-<<<<<<< HEAD
             if (isFavourite) {
-                gitHelper.deleteById(dataUser.username.toString())
-=======
-            if (isFavourite == true) {
                 gitHelper.deleteById(favourites?.username.toString())
->>>>>>> 8052c23c9de23625b2334fb8df56658a90e944e8
                 Toast.makeText(this, "Deleted from favourite list", Toast.LENGTH_SHORT).show()
                 btn_fav.setImageResource(unChecked)
                 isFavourite = false
