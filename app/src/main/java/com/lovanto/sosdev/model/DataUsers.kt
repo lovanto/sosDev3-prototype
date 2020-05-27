@@ -11,7 +11,8 @@ data class DataUsers(
     var location: String? = "",
     var repository: Int = 0,
     var followers: Int = 0,
-    var following: Int = 0
+    var following: Int = 0,
+    var isFav: String? = "0"
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -21,7 +22,8 @@ data class DataUsers(
         parcel.readString(),
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readString()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -33,6 +35,7 @@ data class DataUsers(
         parcel.writeInt(repository)
         parcel.writeInt(followers)
         parcel.writeInt(following)
+        parcel.writeString(isFav)
     }
 
     override fun describeContents(): Int {

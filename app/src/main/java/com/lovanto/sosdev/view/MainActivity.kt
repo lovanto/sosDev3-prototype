@@ -38,10 +38,10 @@ class MainActivity : AppCompatActivity() {
         setActionBarTitle(title)
 
         adapter = ListDataUsersAdapter(listData)
+        progressBar.visibility = View.INVISIBLE
 
         recyclerViewConfig()
         searchData()
-        getDataGit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.favouriteMenu -> {
-                val i = Intent(this, DetailActivity::class.java)
+                val i = Intent(this, FavActivity::class.java)
                 startActivity(i)
                 return true
             }
@@ -96,54 +96,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun getDataGit() {
-        progressBar.visibility = View.VISIBLE
-        val client = AsyncHttpClient()
-        client.addHeader("Authorization", "token 6fe9dff2e5e43d25eb3abe9ff508a750b972f725")
-        client.addHeader("User-Agent", "request")
-        val url = "https://api.github.com/users"
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<Header>,
-                responseBody: ByteArray
-            ) {
-                progressBar.visibility = View.INVISIBLE
-                val result = String(responseBody)
-                Log.d(TAG, result)
-                try {
-                    val jsonArray = JSONArray(result)
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.getJSONObject(i)
-                        val username: String = jsonObject.getString("login")
-                        getDataGitDetail(username)
-                    }
-                } catch (e: Exception) {
-                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT)
-                        .show()
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<Header>,
-                responseBody: ByteArray,
-                error: Throwable
-            ) {
-                progressBar.visibility = View.INVISIBLE
-                val errorMessage = when (statusCode) {
-                    401 -> "$statusCode : Bad Request"
-                    403 -> "$statusCode : Forbidden"
-                    404 -> "$statusCode : Not Found"
-                    else -> "$statusCode : ${error.message + " GIT"}"
-                }
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_LONG)
-                    .show()
-            }
-        })
-    }
-
     private fun getDataGitDetail(id: String) {
         progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
@@ -169,6 +121,7 @@ class MainActivity : AppCompatActivity() {
                     val repository: Int = jsonObject.getInt("public_repos")
                     val followers: Int = jsonObject.getInt("followers")
                     val following: Int = jsonObject.getInt("following")
+                    val isFav = "0"
                     listData.add(
                         DataUsers(
                             username,
@@ -178,7 +131,8 @@ class MainActivity : AppCompatActivity() {
                             location,
                             repository,
                             followers,
-                            following
+                            following,
+                            isFav
                         )
                     )
                     showRecyclerList()
@@ -271,24 +225,8 @@ class MainActivity : AppCompatActivity() {
 
         listDataAdapter.setOnItemClickCallback(object : ListDataUsersAdapter.OnItemClickCallback {
             override fun onItemClicked(dataUsers: DataUsers) {
-                showSelectedData(dataUsers)
+
             }
         })
-    }
-
-    private fun showSelectedData(dataUsers: DataUsers) {
-        val dataUser = DataUsers(
-            dataUsers.username,
-            dataUsers.name,
-            dataUsers.avatar,
-            dataUsers.company,
-            dataUsers.location,
-            dataUsers.repository,
-            dataUsers.followers,
-            dataUsers.following
-        )
-        val intentDetail = Intent(this@MainActivity, DetailActivity::class.java)
-        intentDetail.putExtra(DetailActivity.EXTRA_DATA, dataUser)
-        startActivity(intentDetail)
     }
 }

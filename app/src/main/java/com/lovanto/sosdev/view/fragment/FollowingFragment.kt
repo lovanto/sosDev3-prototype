@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.lovanto.sosdev.R
-import com.lovanto.sosdev.model.DataFollowing
 import com.lovanto.sosdev.model.DataUsers
 import com.lovanto.sosdev.viewModel.ListDataFollowingAdapter
 import com.lovanto.sosdev.viewModel.followingFilterList
@@ -27,7 +26,7 @@ class FollowingFragment : Fragment() {
         const val EXTRA_DATA = "extra_data"
     }
 
-    private var listData: ArrayList<DataFollowing> = ArrayList()
+    private var listData: ArrayList<DataUsers> = ArrayList()
     private lateinit var adapter: ListDataFollowingAdapter
 
     override fun onCreateView(
@@ -120,7 +119,7 @@ class FollowingFragment : Fragment() {
                     val followers: Int = jsonObject.getInt("followers")
                     val following: Int = jsonObject.getInt("following")
                     listData.add(
-                        DataFollowing(
+                        DataUsers(
                             username,
                             name,
                             avatar,
@@ -166,7 +165,7 @@ class FollowingFragment : Fragment() {
 
         listDataAdapter.setOnItemClickCallback(object :
             ListDataFollowingAdapter.OnItemClickCallback {
-            override fun onItemClicked(DataFollowing: DataFollowing) {
+            override fun onItemClicked(DataUsers: DataUsers) {
                 //DO NOTHING
             }
         })
