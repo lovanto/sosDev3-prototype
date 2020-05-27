@@ -24,11 +24,10 @@ class AlarmReceiver : BroadcastReceiver() {
 
         private const val ID_DAILY = 100
 
-        private const val TIME_DAILY = "22:39"
+        private const val TIME_DAILY = "09:00"
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        val type = intent.getStringExtra(EXTRA_TYPE)
         val message = intent.getStringExtra(EXTRA_MESSAGE)
 
         val title = TYPE_DAILY
