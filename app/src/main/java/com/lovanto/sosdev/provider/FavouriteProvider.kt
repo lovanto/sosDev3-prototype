@@ -15,26 +15,14 @@ class FavouriteProvider : ContentProvider() {
 
     companion object {
 
-        /*
-        Integer digunakan sebagai identifier antara select all sama select by id
-         */
         private const val FAV = 1
         private const val FAV_ID = 2
         private lateinit var favHelper: FavouriteHelper
 
         private val sUriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
-        /*
-        Uri matcher untuk mempermudah identifier dengan menggunakan integer
-        misal
-        uri com.dicoding.picodiploma.mynotesapp dicocokan dengan integer 1
-        uri com.dicoding.picodiploma.mynotesapp/# dicocokan dengan integer 2
-         */
         init {
-            // content://com.dicoding.picodiploma.mynotesapp/note
             sUriMatcher.addURI(AUTHORITY, TABLE_NAME, FAV)
-
-            // content://com.dicoding.picodiploma.mynotesapp/note/id
             sUriMatcher.addURI(AUTHORITY,
                 "$TABLE_NAME/#",
                 FAV_ID)
@@ -47,10 +35,6 @@ class FavouriteProvider : ContentProvider() {
         return true
     }
 
-    /*
-    Method queryAll digunakan ketika ingin menjalankan queryAll Select
-    Return cursor
-     */
     override fun query(uri: Uri, strings: Array<String>?, s: String?, strings1: Array<String>?, s1: String?): Cursor? {
         val cursor: Cursor?
         when (sUriMatcher.match(uri)) {

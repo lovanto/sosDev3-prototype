@@ -1,6 +1,5 @@
 package com.lovanto.sosdev.view
 
-import android.content.Intent
 import android.database.ContentObserver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

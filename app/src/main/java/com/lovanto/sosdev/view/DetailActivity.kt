@@ -2,8 +2,6 @@ package com.lovanto.sosdev.view
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.database.sqlite.SQLiteDatabase
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -19,7 +17,6 @@ import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.FOLLOWING
 import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.LOCATION
 import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.NAME
 import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.REPOSITORY
-import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.TABLE_NAME
 import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.USERNAME
 import com.lovanto.sosdev.db.FavouriteHelper
 import com.lovanto.sosdev.model.DataUsers
@@ -37,7 +34,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         const val EXTRA_POSITION = "extra_position"
     }
 
-    private lateinit var uriWithId: Uri
     private var isFavourite = false
     private lateinit var gitHelper: FavouriteHelper
 
@@ -90,7 +86,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         val checked : Int = R.drawable.ic_favorite_black_24dp
         val unChecked : Int = R.drawable.ic_favorite_border_black_24dp
         if (view.id == R.id.btn_fav) {
-            if (isFavourite == true) {
+            if (isFavourite) {
                 gitHelper.deleteById(dataUser.username.toString())
                 Toast.makeText(this, "Deleted from favourite list", Toast.LENGTH_SHORT).show()
                 btn_fav.setImageResource(unChecked)

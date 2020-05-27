@@ -27,22 +27,6 @@ class FavouriteAdapter(private val activity: Activity) : RecyclerView.Adapter<Fa
             notifyDataSetChanged()
         }
 
-    fun addItem(fav: Favourite) {
-        this.listNotes.add(fav)
-        notifyItemInserted(this.listNotes.size - 1)
-    }
-
-    fun updateItem(position: Int, fav: Favourite) {
-        this.listNotes[position] = fav
-        notifyItemChanged(position, fav)
-    }
-
-    fun removeItem(position: Int) {
-        this.listNotes.removeAt(position)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, this.listNotes.size)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row_users, parent, false)
         return NoteViewHolder(view)

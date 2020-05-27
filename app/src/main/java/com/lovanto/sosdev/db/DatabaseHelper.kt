@@ -13,7 +13,7 @@ internal class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
 
         private const val DATABASE_VERSION = 1
 
-        private val SQL_CREATE_TABLE_NOTE = "CREATE TABLE $TABLE_NAME" +
+        private const val SQL_CREATE_TABLE_NOTE = "CREATE TABLE $TABLE_NAME" +
                 " (${DatabaseSosDev.FavColumns.USERNAME} TEXT PRIMARY KEY  NOT NULL," +
                 " ${DatabaseSosDev.FavColumns.NAME} TEXT NOT NULL," +
                 " ${DatabaseSosDev.FavColumns.AVATAR} TEXT NOT NULL," +

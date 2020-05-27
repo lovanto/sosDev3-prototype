@@ -5,18 +5,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
-import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.AVATAR
-import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.COMPANY
-import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.FAVOURITE
-import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.FOLLOWERS
-import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.FOLLOWING
-import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.LOCATION
-import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.NAME
-import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.REPOSITORY
 import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.TABLE_NAME
 import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.USERNAME
-import com.lovanto.sosdev.model.Favourite
-import java.util.*
 
 class FavouriteHelper(context: Context) {
 
