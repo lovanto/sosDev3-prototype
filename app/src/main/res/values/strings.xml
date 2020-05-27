@@ -15,4 +15,6 @@
     <string name="separator">Separator</string>
     <string name="favourite">Favourite</string>
     <string name="setting">Setting</string>
+    <string name="reminder_setting">Reminder Setting</string>
+    <string name="daily_reminder">Daily Reminder</string>
 </resources>

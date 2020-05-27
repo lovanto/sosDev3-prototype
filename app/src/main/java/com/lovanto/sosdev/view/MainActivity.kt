@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.settingMenu -> {
-                val i = Intent(this, DetailActivity::class.java)
+                val i = Intent(this, SettingActivity::class.java)
                 startActivity(i)
                 return true
             }
