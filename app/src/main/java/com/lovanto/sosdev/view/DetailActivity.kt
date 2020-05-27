@@ -23,6 +23,7 @@ import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.TABLE_NAME
 import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.USERNAME
 import com.lovanto.sosdev.db.FavouriteHelper
 import com.lovanto.sosdev.model.DataUsers
+import com.lovanto.sosdev.model.Favourite
 import com.lovanto.sosdev.viewModel.ViewPagerDetailAdapter
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.item_row_users.username
@@ -35,11 +36,14 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         const val EXTRA_FAV = "extra_data"
         const val EXTRA_NOTE = "extra_note"
         const val EXTRA_POSITION = "extra_position"
+        const val REQUEST_OBJECT = 100
     }
 
     private lateinit var uriWithId: Uri
     private var isFavourite = false
     private lateinit var gitHelper: FavouriteHelper
+    private var favourites: Favourite? = null
+    private var position: Int = 0
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +53,14 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         gitHelper = FavouriteHelper.getInstance(applicationContext)
         gitHelper.open()
 
-        setData()
+        favourites = intent.getParcelableExtra(EXTRA_NOTE)
+        if (favourites != null) {
+            setDataObject()
+            isFavourite = true
+        } else {
+            setData()
+        }
+
         viewPagerConfig()
 
         btn_fav.setOnClickListener(this)
@@ -82,6 +93,22 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         followings.text = dataUser.following.toString()
         Glide.with(this)
             .load(dataUser.avatar.toString())
+            .into(avatars)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setDataObject() {
+        val favUser = intent.getParcelableExtra(EXTRA_NOTE) as Favourite
+        setActionBarTitle("Detail of "+favUser.name.toString())
+        name.text = favUser.name.toString()
+        username.text = "( " + favUser.username.toString() + " )"
+        company.text = favUser.company.toString()
+        location.text = favUser.location.toString()
+        repo.text = favUser.repository.toString()
+        followerss.text = favUser.followers.toString()
+        followings.text = favUser.following.toString()
+        Glide.with(this)
+            .load(favUser.avatar.toString())
             .into(avatars)
     }
 
