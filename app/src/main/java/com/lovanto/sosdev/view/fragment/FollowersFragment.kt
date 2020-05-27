@@ -12,6 +12,8 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.lovanto.sosdev.R
 import com.lovanto.sosdev.model.DataUsers
+import com.lovanto.sosdev.model.Favourite
+import com.lovanto.sosdev.view.DetailActivity
 import com.lovanto.sosdev.viewModel.ListDataFollowersAdapter
 import com.lovanto.sosdev.viewModel.followersFilterList
 import cz.msebera.android.httpclient.Header
@@ -24,10 +26,14 @@ class FollowersFragment : Fragment() {
     companion object {
         private val TAG = FollowersFragment::class.java.simpleName
         const val EXTRA_DATA = "extra_data"
+        const val EXTRA_NOTE = "extra_note"
     }
 
     private var listData: ArrayList<DataUsers> = ArrayList()
     private lateinit var adapter: ListDataFollowersAdapter
+    private var favourites: Favourite? = null
+    private lateinit var dataUser: Favourite
+    private lateinit var dataUser2: DataUsers
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,9 +46,15 @@ class FollowersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = ListDataFollowersAdapter(listData)
         listData.clear()
-        val dataUser =
-            activity!!.intent.getParcelableExtra(EXTRA_DATA) as DataUsers
-        getDataGit(dataUser.username.toString())
+
+        favourites = activity!!.intent.getParcelableExtra(DetailActivity.EXTRA_NOTE)
+        if (favourites != null) {
+            dataUser = activity!!.intent.getParcelableExtra(EXTRA_NOTE) as Favourite
+            getDataGit(dataUser.username.toString())
+        } else {
+            dataUser2 = activity!!.intent.getParcelableExtra(EXTRA_DATA) as DataUsers
+            getDataGit(dataUser2.username.toString())
+        }
     }
 
     private fun getDataGit(id: String) {

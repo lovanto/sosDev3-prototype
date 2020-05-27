@@ -82,7 +82,6 @@ class FavActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(EXTRA_STATE, adapter.listNotes)
@@ -90,5 +89,10 @@ class FavActivity : AppCompatActivity() {
 
     private fun showSnackbarMessage(message: String) {
         Snackbar.make(recycleViewFav, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadNotesAsync()
     }
 }
