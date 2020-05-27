@@ -97,13 +97,12 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         val dataUser = intent.getParcelableExtra(EXTRA_DATA) as DataUsers
-        uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + dataUser?.username)
         val checked : Int = R.drawable.ic_favorite_black_24dp
         val unChecked : Int = R.drawable.ic_favorite_border_black_24dp
         if (view.id == R.id.btn_fav) {
             if (isFavourite == true) {
                 gitHelper.deleteById(dataUser.username.toString())
-                Toast.makeText(this, "$uriWithId", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Deleted from favourite list", Toast.LENGTH_SHORT).show()
                 btn_fav.setImageResource(unChecked)
             } else {
                 val dataUsername = dataUser.username.toString()
