@@ -72,10 +72,10 @@ class FavActivity : AppCompatActivity() {
                 val cursor = contentResolver?.query(CONTENT_URI, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
             }
-            val notes = deferredNotes.await()
+            val favData = deferredNotes.await()
             progressBarFav.visibility = View.INVISIBLE
-            if (notes.size > 0) {
-                adapter.listNotes = notes
+            if (favData.size > 0) {
+                adapter.listNotes = favData
             } else {
                 adapter.listNotes = ArrayList()
                 showSnackbarMessage("Tidak ada data saat ini")
