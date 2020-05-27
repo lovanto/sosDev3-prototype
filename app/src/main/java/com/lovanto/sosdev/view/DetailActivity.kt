@@ -83,16 +83,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         Glide.with(this)
             .load(dataUser.avatar.toString())
             .into(avatars)
-
-        val checked : Int = R.drawable.ic_favorite_black_24dp
-        val unChecked : Int = R.drawable.ic_favorite_border_black_24dp
-        btn_fav.setImageResource(unChecked)
-        val isFack = gitHelper.queryById(dataUser.username.toString())
-        Toast.makeText(this, "$isFack", Toast.LENGTH_SHORT).show()
-        if (isFack != null){
-            isFavourite = true
-            btn_fav.setImageResource(checked)
-        }
     }
 
     override fun onClick(view: View) {
@@ -126,6 +116,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
                 values.put(FOLLOWING, dataFollowing)
                 values.put(FAVOURITE, dataFavourite)
 
+                isFavourite = true
                 contentResolver.insert(CONTENT_URI, values)
                 Toast.makeText(this, "Added to favourite list", Toast.LENGTH_SHORT).show()
                 btn_fav.setImageResource(checked)
