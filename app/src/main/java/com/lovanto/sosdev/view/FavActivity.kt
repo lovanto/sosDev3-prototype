@@ -91,4 +91,9 @@ class FavActivity : AppCompatActivity() {
     private fun showSnackbarMessage(message: String) {
         Snackbar.make(recycleViewFav, message, Snackbar.LENGTH_SHORT).show()
     }
+
+    override fun onResume() {
+        super.onResume()
+        loadNotesAsync()
+    }
 }
