@@ -1,9 +1,11 @@
 package com.lovanto.sosdev.view
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.MenuItem
 import com.lovanto.sosdev.R
 import com.lovanto.sosdev.alarm.AlarmReceiver
@@ -14,6 +16,7 @@ class SettingActivity : AppCompatActivity() {
     companion object {
         const val PREFS_NAME = "SettingPref"
         private const val DAILY = "daily"
+        private const val RELEASE = "release"
     }
 
     private lateinit var alarmReceiver: AlarmReceiver
@@ -23,7 +26,7 @@ class SettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = "Setting"
+        title = getString(R.string.setting)
 
         alarmReceiver = AlarmReceiver()
         mSharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)

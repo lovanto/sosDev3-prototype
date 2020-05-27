@@ -9,31 +9,40 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import com.loopj.android.http.AsyncHttpClient
+import com.loopj.android.http.AsyncHttpResponseHandler
 import com.lovanto.sosdev.R
+import cz.msebera.android.httpclient.Header
+import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class AlarmReceiver : BroadcastReceiver() {
 
     companion object {
-        const val TYPE_DAILY = "Github App"
+        const val TYPE_RELEASE = "Release Reminder"
+        const val TYPE_DAILY = "Daily Reminder"
         const val EXTRA_MESSAGE = "message"
         const val EXTRA_TYPE = "type"
 
         private const val ID_DAILY = 100
+        private const val ID_RELEASE = 101
 
-        private const val TIME_DAILY = "18:14"
+        private const val TIME_DAILY = "22:37"
     }
 
     override fun onReceive(context: Context, intent: Intent) {
+        val type = intent.getStringExtra(EXTRA_TYPE)
         val message = intent.getStringExtra(EXTRA_MESSAGE)
 
         val title = TYPE_DAILY
-        val notifId = ID_DAILY
-        showAlarmNotification(context, title, message, notifId)
+        var notifId = ID_DAILY
 
+        showAlarmNotification(context, title, message, notifId)
     }
 
     fun setDailyReminder(context: Context, type: String, message: String) {
@@ -58,7 +67,7 @@ class AlarmReceiver : BroadcastReceiver() {
         Toast.makeText(context, "Daily reminder set up", Toast.LENGTH_SHORT).show()
     }
 
-    fun cancelAlarm(context: Context) {
+    fun cancelAlarm(context: Context, type: String) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
         val requestCode = ID_DAILY
@@ -75,8 +84,8 @@ class AlarmReceiver : BroadcastReceiver() {
         notifId: Int
     ) {
 
-        val CHANNEL_ID = "Github App"
-        val CHANNEL_NAME = "Let's find favourite user on Github"
+        val CHANNEL_ID = "Channel_1"
+        val CHANNEL_NAME = "MyMovieCatalogue Channel"
 
         val notificationManagerCompat =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
