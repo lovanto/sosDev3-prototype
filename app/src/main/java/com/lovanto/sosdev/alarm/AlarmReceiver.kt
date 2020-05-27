@@ -9,30 +9,22 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
 import com.lovanto.sosdev.R
-import cz.msebera.android.httpclient.Header
-import org.json.JSONObject
-import java.text.SimpleDateFormat
 import java.util.*
 
 
 class AlarmReceiver : BroadcastReceiver() {
 
     companion object {
-        const val TYPE_RELEASE = "Release Reminder"
         const val TYPE_DAILY = "Daily Reminder"
         const val EXTRA_MESSAGE = "message"
         const val EXTRA_TYPE = "type"
 
         private const val ID_DAILY = 100
-        private const val ID_RELEASE = 101
 
-        private const val TIME_DAILY = "22:37"
+        private const val TIME_DAILY = "22:39"
     }
 
     override fun onReceive(context: Context, intent: Intent) {

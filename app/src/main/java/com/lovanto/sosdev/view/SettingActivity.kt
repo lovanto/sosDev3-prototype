@@ -1,11 +1,9 @@
 package com.lovanto.sosdev.view
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
 import android.view.MenuItem
 import com.lovanto.sosdev.R
 import com.lovanto.sosdev.alarm.AlarmReceiver
