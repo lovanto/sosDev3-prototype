@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.loopj.android.http.AsyncHttpClient
@@ -19,7 +20,6 @@ import com.lovanto.sosdev.viewModel.ListDataUsersAdapter
 import com.lovanto.sosdev.viewModel.userFilterList
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONArray
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -228,5 +228,11 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        listData.clear()
+        user_search.setQuery("", false)
     }
 }
