@@ -13,5 +13,5 @@ data class Favourite(
     var repository: Int = 0,
     var followers: Int = 0,
     var following: Int = 0,
-    var fav: String? = "false"
+    var isFav: String? = "0"
 ) : Parcelable

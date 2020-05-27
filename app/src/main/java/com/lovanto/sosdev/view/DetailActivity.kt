@@ -2,31 +2,53 @@ package com.lovanto.sosdev.view
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.database.sqlite.SQLiteDatabase
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.lovanto.sosdev.R
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.AVATAR
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.COMPANY
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.CONTENT_URI
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.FAVOURITE
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.FOLLOWERS
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.FOLLOWING
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.LOCATION
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.NAME
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.REPOSITORY
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.TABLE_NAME
+import com.lovanto.sosdev.db.DatabaseSosDev.FavColumns.Companion.USERNAME
+import com.lovanto.sosdev.db.FavouriteHelper
 import com.lovanto.sosdev.model.DataUsers
 import com.lovanto.sosdev.viewModel.ViewPagerDetailAdapter
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.item_row_users.username
 
+
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val EXTRA_FAV = "extra_data"
         const val EXTRA_NOTE = "extra_note"
         const val EXTRA_POSITION = "extra_position"
-        const val REQUEST_ADD = 100
-        const val REQUEST_UPDATE = 200
     }
+
+    private lateinit var uriWithId: Uri
+    private var isFavourite = false
+    private lateinit var gitHelper: FavouriteHelper
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
+        gitHelper = FavouriteHelper.getInstance(applicationContext)
+        gitHelper.open()
+
         setData()
         viewPagerConfig()
 
@@ -61,37 +83,59 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         Glide.with(this)
             .load(dataUser.avatar.toString())
             .into(avatars)
+
+        val checked : Int = R.drawable.ic_favorite_black_24dp
+        val unChecked : Int = R.drawable.ic_favorite_border_black_24dp
+        btn_fav.setImageResource(unChecked)
+        val isFack = gitHelper.queryById(dataUser.username.toString())
+        Toast.makeText(this, "$isFack", Toast.LENGTH_SHORT).show()
+        if (isFack != null){
+            isFavourite = true
+            btn_fav.setImageResource(checked)
+        }
     }
 
     override fun onClick(view: View) {
+        val dataUser = intent.getParcelableExtra(EXTRA_DATA) as DataUsers
+        uriWithId = Uri.parse(CONTENT_URI.toString() + "/" + dataUser?.username)
+        val checked : Int = R.drawable.ic_favorite_black_24dp
+        val unChecked : Int = R.drawable.ic_favorite_border_black_24dp
         if (view.id == R.id.btn_fav) {
-//            val title = edt_title.text.toString().trim()
-//            val description = edt_description.text.toString().trim()
-//
-//            if (title.isEmpty()) {
-//                edt_title.error = "Field can not be blank"
-//                return
-//            }
-//
-//            val values = ContentValues()
-//            values.put(TITLE, title)
-//            values.put(DESCRIPTION, description)
-//
-//            if (isEdit) {
-//                // Gunakan uriWithId untuk update
-//                // content://com.dicoding.picodiploma.mynotesapp/note/id
-//                contentResolver.update(uriWithId, values, null, null)
-//                Toast.makeText(this, "Satu item berhasil diedit", Toast.LENGTH_SHORT).show()
-//                finish()
-//            } else {
-//                values.put(DATE, getCurrentDate())
-//                // Gunakan content uri untuk insert
-//                // content://com.dicoding.picodiploma.mynotesapp/note/
-//                contentResolver.insert(CONTENT_URI, values)
-//                Toast.makeText(this, "Satu item berhasil disimpan", Toast.LENGTH_SHORT).show()
-//                finish()
-//            }
-                Toast.makeText(this, "Satu item berhasil disimpan", Toast.LENGTH_SHORT).show()
+            if (isFavourite == true) {
+                gitHelper.deleteById(dataUser.username.toString())
+                Toast.makeText(this, "$uriWithId", Toast.LENGTH_SHORT).show()
+                btn_fav.setImageResource(unChecked)
+            } else {
+                val dataUsername = dataUser.username.toString()
+                val dataName = dataUser.name.toString()
+                val dataAvatar = dataUser.avatar.toString()
+                val datacompany = dataUser.company.toString()
+                val dataLocation = dataUser.location.toString()
+                val dataRepository = dataUser.repository
+                val dataFollowers = dataUser.followers
+                val dataFollowing = dataUser.following
+                val dataFavourite = "1"
+
+                val values = ContentValues()
+                values.put(USERNAME, dataUsername)
+                values.put(NAME, dataName)
+                values.put(AVATAR, dataAvatar)
+                values.put(COMPANY, datacompany)
+                values.put(LOCATION, dataLocation)
+                values.put(REPOSITORY, dataRepository)
+                values.put(FOLLOWERS, dataFollowers)
+                values.put(FOLLOWING, dataFollowing)
+                values.put(FAVOURITE, dataFavourite)
+
+                contentResolver.insert(CONTENT_URI, values)
+                Toast.makeText(this, "Added to favourite list", Toast.LENGTH_SHORT).show()
+                btn_fav.setImageResource(checked)
+            }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        gitHelper.close()
     }
 }

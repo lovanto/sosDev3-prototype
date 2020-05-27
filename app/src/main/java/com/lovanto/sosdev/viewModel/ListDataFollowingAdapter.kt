@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.lovanto.sosdev.R
-import com.lovanto.sosdev.model.DataFollowing
+import com.lovanto.sosdev.model.DataUsers
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.item_row_users.view.*
 
-var followingFilterList = ArrayList<DataFollowing>()
+var followingFilterList = ArrayList<DataUsers>()
 
-class ListDataFollowingAdapter(listData: ArrayList<DataFollowing>) :
+class ListDataFollowingAdapter(listData: ArrayList<DataUsers>) :
     RecyclerView.Adapter<ListDataFollowingAdapter.ListDataHolder>() {
 
     init {
@@ -36,7 +36,7 @@ class ListDataFollowingAdapter(listData: ArrayList<DataFollowing>) :
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(DataFollowing: DataFollowing)
+        fun onItemClicked(DataUsers: DataUsers)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListDataHolder {

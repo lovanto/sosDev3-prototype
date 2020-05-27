@@ -20,9 +20,8 @@ object DatabaseSosDev {
             const val REPOSITORY = "repository"
             const val FOLLOWERS = "followers"
             const val FOLLOWING = "following"
-            const val FAVOURITE = "favourite"
+            const val FAVOURITE = "isFav"
 
-            // untuk membuat URI content://com.lovanto.sosdev
             val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
                     .authority(AUTHORITY)
                     .appendPath(TABLE_NAME)

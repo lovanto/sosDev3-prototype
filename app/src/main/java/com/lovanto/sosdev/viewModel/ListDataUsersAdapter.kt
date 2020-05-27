@@ -10,8 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.lovanto.sosdev.CustomOnItemClickListener
 import com.lovanto.sosdev.R
 import com.lovanto.sosdev.model.DataUsers
+import com.lovanto.sosdev.model.Favourite
 import com.lovanto.sosdev.view.DetailActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.item_row_users.view.*
@@ -67,6 +69,7 @@ class ListDataUsersAdapter(private var listData: ArrayList<DataUsers>) :
         holder.username.text = data.username
         holder.followers.text = data.followers.toString().trim()
         holder.following.text = data.following.toString().trim()
+
         holder.itemView.setOnClickListener {
             val dataUser = DataUsers(
                 data.username,
@@ -76,10 +79,12 @@ class ListDataUsersAdapter(private var listData: ArrayList<DataUsers>) :
                 data.location,
                 data.repository,
                 data.followers,
-                data.following
+                data.following,
+                data.isFav
             )
             val intentDetail = Intent(mcontext, DetailActivity::class.java)
             intentDetail.putExtra(DetailActivity.EXTRA_DATA, dataUser)
+            intentDetail.putExtra(DetailActivity.EXTRA_FAV, dataUser)
             mcontext.startActivity(intentDetail)
         }
     }

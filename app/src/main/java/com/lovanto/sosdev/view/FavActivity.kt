@@ -38,11 +38,6 @@ class FavActivity : AppCompatActivity() {
         adapter = FavouriteAdapter(this)
         recycleViewFav.adapter = adapter
 
-//        fab_add.setOnClickListener {
-//            val intent = Intent(this@MainActivity, NoteAddUpdateActivity::class.java)
-//            startActivityForResult(intent, NoteAddUpdateActivity.REQUEST_ADD)
-//        }
-
         val handlerThread = HandlerThread("DataObserver")
         handlerThread.start()
         val handler = Handler(handlerThread.looper)

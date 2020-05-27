@@ -169,6 +169,7 @@ class MainActivity : AppCompatActivity() {
                     val repository: Int = jsonObject.getInt("public_repos")
                     val followers: Int = jsonObject.getInt("followers")
                     val following: Int = jsonObject.getInt("following")
+                    val isFav = "0"
                     listData.add(
                         DataUsers(
                             username,
@@ -178,7 +179,8 @@ class MainActivity : AppCompatActivity() {
                             location,
                             repository,
                             followers,
-                            following
+                            following,
+                            isFav
                         )
                     )
                     showRecyclerList()
@@ -271,24 +273,8 @@ class MainActivity : AppCompatActivity() {
 
         listDataAdapter.setOnItemClickCallback(object : ListDataUsersAdapter.OnItemClickCallback {
             override fun onItemClicked(dataUsers: DataUsers) {
-                showSelectedData(dataUsers)
+
             }
         })
-    }
-
-    private fun showSelectedData(dataUsers: DataUsers) {
-        val dataUser = DataUsers(
-            dataUsers.username,
-            dataUsers.name,
-            dataUsers.avatar,
-            dataUsers.company,
-            dataUsers.location,
-            dataUsers.repository,
-            dataUsers.followers,
-            dataUsers.following
-        )
-        val intentDetail = Intent(this@MainActivity, DetailActivity::class.java)
-        intentDetail.putExtra(DetailActivity.EXTRA_DATA, dataUser)
-        startActivity(intentDetail)
     }
 }
