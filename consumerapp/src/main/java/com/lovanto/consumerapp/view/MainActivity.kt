@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lovanto.consumerapp.R
 import com.lovanto.consumerapp.db.DatabaseSosDev
+import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.CONTENT_URI
 import com.lovanto.consumerapp.helper.MappingHelper
 import com.lovanto.consumerapp.model.Favourite
 import com.lovanto.consumerapp.viewModel.FavouriteAdapter
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        contentResolver.registerContentObserver(DatabaseSosDev.FavColumns.CONTENT_URI, true, myObserver)
+        contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
 
         if (savedInstanceState == null) {
             loadNotesAsync()
