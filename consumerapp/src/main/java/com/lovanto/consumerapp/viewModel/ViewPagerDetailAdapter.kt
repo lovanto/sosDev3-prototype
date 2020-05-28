@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.lovanto.consumerapp.R
-import com.lovanto.sosdev.view.fragment.FollowersFragment
-import com.lovanto.sosdev.view.fragment.FollowingFragment
+import com.lovanto.consumerapp.view.fragment.FollowersFragment
+import com.lovanto.consumerapp.view.fragment.FollowingFragment
 
 class ViewPagerDetailAdapter(private val mContext: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
