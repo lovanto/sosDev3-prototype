@@ -1,8 +1,8 @@
 package com.lovanto.sosdev.helper
 
 import android.database.Cursor
-import com.lovanto.sosdev.db.DatabaseSosDev
-import com.lovanto.sosdev.model.Favourite
+import com.lovanto.consumerapp.db.DatabaseSosDev
+import com.lovanto.consumerapp.model.Favourite
 import java.util.ArrayList
 
 object MappingHelper {

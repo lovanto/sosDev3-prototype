@@ -11,7 +11,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
-import com.lovanto.sosdev.R
+import com.lovanto.consumerapp.R
 import java.util.*
 
 

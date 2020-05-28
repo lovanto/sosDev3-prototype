@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.lovanto.sosdev.CustomOnItemClickListener
-import com.lovanto.sosdev.R
-import com.lovanto.sosdev.model.Favourite
-import com.lovanto.sosdev.view.DetailActivity
+import com.lovanto.consumerapp.CustomOnItemClickListener
+import com.lovanto.consumerapp.R
+import com.lovanto.consumerapp.model.Favourite
+import com.lovanto.consumerapp.view.DetailActivity
 import kotlinx.android.synthetic.main.item_row_users.view.*
 
 import java.util.ArrayList

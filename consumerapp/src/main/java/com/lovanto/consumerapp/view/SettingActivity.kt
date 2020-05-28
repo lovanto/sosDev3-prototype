@@ -5,8 +5,8 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import com.lovanto.sosdev.R
-import com.lovanto.sosdev.alarm.AlarmReceiver
+import com.lovanto.consumerapp.R
+import com.lovanto.consumerapp.alarm.AlarmReceiver
 import kotlinx.android.synthetic.main.activity_setting.*
 
 class SettingActivity : AppCompatActivity() {

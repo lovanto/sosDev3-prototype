@@ -9,8 +9,6 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lovanto.consumerapp.R
-import com.lovanto.sosdev.db.DatabaseSosDev
-import com.lovanto.sosdev.helper.MappingHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
