@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.DetailActivity" />
+        <activity android:name=".view.SettingActivity" />
     </application>
 
 </manifest>
