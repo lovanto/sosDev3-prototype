@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.lovanto.sosdev.R
-import com.lovanto.sosdev.model.DataUsers
+import com.lovanto.consumerapp.R
+import com.lovanto.consumerapp.model.DataUsers
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.item_row_users.view.*
 
