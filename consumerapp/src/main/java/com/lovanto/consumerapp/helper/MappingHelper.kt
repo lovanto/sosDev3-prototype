@@ -1,4 +1,4 @@
-package com.lovanto.sosdev.helper
+package com.lovanto.consumerapp.helper
 
 import android.database.Cursor
 import com.lovanto.consumerapp.db.DatabaseSosDev

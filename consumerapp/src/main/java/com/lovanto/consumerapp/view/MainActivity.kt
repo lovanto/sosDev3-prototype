@@ -9,6 +9,11 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lovanto.consumerapp.R
+import com.lovanto.consumerapp.db.DatabaseSosDev
+import com.lovanto.consumerapp.helper.MappingHelper
+import com.lovanto.consumerapp.model.Favourite
+import com.lovanto.consumerapp.viewModel.FavouriteAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -24,13 +29,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fav)
+        setContentView(R.layout.activity_main)
         setActionBarTitle("Favourite Users")
 
-        recycleViewFav.layoutManager = LinearLayoutManager(this)
-        recycleViewFav.setHasFixedSize(true)
+        recycleView.layoutManager = LinearLayoutManager(this)
+        recycleView.setHasFixedSize(true)
         adapter = FavouriteAdapter(this)
-        recycleViewFav.adapter = adapter
+        recycleView.adapter = adapter
 
         val handlerThread = HandlerThread("DataObserver")
         handlerThread.start()
@@ -83,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSnackbarMessage(message: String) {
-        Snackbar.make(recycleViewFav, message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(recycleView, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onResume() {

@@ -1,32 +1,17 @@
 package com.lovanto.consumerapp.view
 
 import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.lovanto.consumerapp.R
-import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.AVATAR
-import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.COMPANY
-import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.CONTENT_URI
-import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.FAVOURITE
-import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.FOLLOWERS
-import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.FOLLOWING
-import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.LOCATION
-import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.NAME
-import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.REPOSITORY
-import com.lovanto.consumerapp.db.DatabaseSosDev.FavColumns.Companion.USERNAME
-import com.lovanto.consumerapp.model.DataUsers
 import com.lovanto.consumerapp.model.Favourite
 import com.lovanto.consumerapp.viewModel.ViewPagerDetailAdapter
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.item_row_users.*
 import kotlinx.android.synthetic.main.item_row_users.username
 
 
-class DetailActivity : AppCompatActivity(), View.OnClickListener {
+class DetailActivity : AppCompatActivity(){
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -36,7 +21,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private var isFavourite = false
-    private lateinit var gitHelper: FavouriteHelper
     private var favourites: Favourite? = null
     private lateinit var imageAvatar: String
 
@@ -45,22 +29,8 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        gitHelper = FavouriteHelper.getInstance(applicationContext)
-        gitHelper.open()
-
-        favourites = intent.getParcelableExtra(EXTRA_NOTE)
-        if (favourites != null) {
-            setDataObject()
-            isFavourite = true
-            val checked : Int = R.drawable.ic_favorite_black_24dp
-            btn_fav.setImageResource(checked)
-        } else {
-            setData()
-        }
-
+        setDataObject()
         viewPagerConfig()
-
-        btn_fav.setOnClickListener(this)
     }
 
     private fun viewPagerConfig() {
@@ -75,23 +45,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         if (supportActionBar != null) {
             supportActionBar!!.title = title
         }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setData() {
-        val dataUser = intent.getParcelableExtra(EXTRA_DATA) as DataUsers
-        setActionBarTitle("Detail of "+dataUser.name.toString())
-        name.text = dataUser.name.toString()
-        username.text = dataUser.username.toString()
-        company.text = dataUser.company.toString()
-        location.text = dataUser.location.toString()
-        repo.text = dataUser.repository.toString()
-        followerss.text = dataUser.followers.toString()
-        followings.text = dataUser.following.toString()
-        Glide.with(this)
-            .load(dataUser.avatar.toString())
-            .into(avatars)
-        imageAvatar = dataUser.avatar.toString()
     }
 
     @SuppressLint("SetTextI18n")
@@ -111,47 +64,4 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         imageAvatar = favUser.avatar.toString()
     }
 
-    override fun onClick(view: View) {
-        val checked : Int = R.drawable.ic_favorite_black_24dp
-        val unChecked : Int = R.drawable.ic_favorite_border_black_24dp
-        if (view.id == R.id.btn_fav) {
-            if (isFavourite) {
-                gitHelper.deleteById(favourites?.username.toString())
-                Toast.makeText(this, "Deleted from favourite list", Toast.LENGTH_SHORT).show()
-                btn_fav.setImageResource(unChecked)
-                isFavourite = false
-            } else {
-                val dataUsername = username.text.toString()
-                val dataName = name.text.toString()
-                val dataAvatar = imageAvatar
-                val datacompany = company.text.toString()
-                val dataLocation = location.text.toString()
-                val dataRepository = repo.text.toString()
-                val dataFollowers = followerss.text.toString()
-                val dataFollowing = followings.text.toString()
-                val dataFavourite = "1"
-
-                val values = ContentValues()
-                values.put(USERNAME, dataUsername)
-                values.put(NAME, dataName)
-                values.put(AVATAR, dataAvatar)
-                values.put(COMPANY, datacompany)
-                values.put(LOCATION, dataLocation)
-                values.put(REPOSITORY, dataRepository)
-                values.put(FOLLOWERS, dataFollowers)
-                values.put(FOLLOWING, dataFollowing)
-                values.put(FAVOURITE, dataFavourite)
-
-                isFavourite = true
-                contentResolver.insert(CONTENT_URI, values)
-                Toast.makeText(this, "Added to favourite list", Toast.LENGTH_SHORT).show()
-                btn_fav.setImageResource(checked)
-            }
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        gitHelper.close()
-    }
 }

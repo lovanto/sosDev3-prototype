@@ -1,4 +1,4 @@
-package com.lovanto.sosdev.model
+package com.lovanto.consumerapp.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
