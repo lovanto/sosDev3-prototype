@@ -1,4 +1,4 @@
-package com.lovanto.sosdev.alarm
+package com.lovanto.consumerapp.alarm
 
 import android.app.AlarmManager
 import android.app.NotificationChannel

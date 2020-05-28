@@ -1,4 +1,4 @@
-package com.lovanto.sosdev.db
+package com.lovanto.consumerapp.db
 
 import android.net.Uri
 import android.provider.BaseColumns
