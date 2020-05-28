@@ -1,4 +1,4 @@
-package com.lovanto.sosdev.view.fragment
+package com.lovanto.consumerapp.view.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
-import com.lovanto.sosdev.R
-import com.lovanto.sosdev.model.DataUsers
-import com.lovanto.sosdev.model.Favourite
-import com.lovanto.sosdev.view.DetailActivity
-import com.lovanto.sosdev.viewModel.ListDataFollowersAdapter
-import com.lovanto.sosdev.viewModel.followersFilterList
+import com.lovanto.consumerapp.R
+import com.lovanto.consumerapp.model.DataUsers
+import com.lovanto.consumerapp.model.Favourite
+import com.lovanto.consumerapp.view.DetailActivity
+import com.lovanto.consumerapp.viewModel.ListDataFollowersAdapter
+import com.lovanto.consumerapp.viewModel.followersFilterList
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.fragment_followers.*
 import org.json.JSONArray
