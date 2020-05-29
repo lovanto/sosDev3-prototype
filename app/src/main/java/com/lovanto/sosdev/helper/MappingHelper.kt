@@ -3,7 +3,7 @@ package com.lovanto.sosdev.helper
 import android.database.Cursor
 import com.lovanto.sosdev.db.DatabaseSosDev
 import com.lovanto.sosdev.model.Favourite
-import java.util.ArrayList
+import java.util.*
 
 object MappingHelper {
 
@@ -20,8 +20,21 @@ object MappingHelper {
                 val repository = getInt(getColumnIndexOrThrow(DatabaseSosDev.FavColumns.REPOSITORY))
                 val followers = getInt(getColumnIndexOrThrow(DatabaseSosDev.FavColumns.FOLLOWERS))
                 val following = getInt(getColumnIndexOrThrow(DatabaseSosDev.FavColumns.FOLLOWING))
-                val favourite = getString(getColumnIndexOrThrow(DatabaseSosDev.FavColumns.FAVOURITE))
-                favList.add(Favourite(username, name, avatar, company, location, repository, followers, following, favourite))
+                val favourite =
+                    getString(getColumnIndexOrThrow(DatabaseSosDev.FavColumns.FAVOURITE))
+                favList.add(
+                    Favourite(
+                        username,
+                        name,
+                        avatar,
+                        company,
+                        location,
+                        repository,
+                        followers,
+                        following,
+                        favourite
+                    )
+                )
             }
         }
         return favList

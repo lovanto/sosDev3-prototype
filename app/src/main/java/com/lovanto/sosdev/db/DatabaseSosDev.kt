@@ -9,7 +9,6 @@ object DatabaseSosDev {
     const val SCHEME = "content"
 
     class FavColumns : BaseColumns {
-
         companion object {
             const val TABLE_NAME = "favourite"
             const val USERNAME = "username"
@@ -23,10 +22,9 @@ object DatabaseSosDev {
             const val FAVOURITE = "isFav"
 
             val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
-                    .authority(AUTHORITY)
-                    .appendPath(TABLE_NAME)
-                    .build()
+                .authority(AUTHORITY)
+                .appendPath(TABLE_NAME)
+                .build()
         }
-
     }
 }

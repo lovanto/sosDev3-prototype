@@ -14,7 +14,6 @@ import androidx.core.app.NotificationCompat
 import com.lovanto.sosdev.R
 import java.util.*
 
-
 class AlarmReceiver : BroadcastReceiver() {
 
     companion object {
@@ -23,15 +22,13 @@ class AlarmReceiver : BroadcastReceiver() {
         const val EXTRA_TYPE = "type"
 
         private const val ID_DAILY = 100
-
-        private const val TIME_DAILY = "09:00"
+        private const val TIME_DAILY = "09:00" //time alarm
     }
 
     override fun onReceive(context: Context, intent: Intent) {
         val message = intent.getStringExtra(EXTRA_MESSAGE)
-
         val title = TYPE_DAILY
-        var notifId = ID_DAILY
+        val notifId = 100
 
         showAlarmNotification(context, title, message, notifId)
     }
@@ -47,8 +44,10 @@ class AlarmReceiver : BroadcastReceiver() {
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
         calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
         calendar.set(Calendar.SECOND, 0)
-        val pendingIntent = PendingIntent.getBroadcast(context,
-            ID_DAILY, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            ID_DAILY, intent, 0
+        )
         alarmManager.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
@@ -71,7 +70,7 @@ class AlarmReceiver : BroadcastReceiver() {
     private fun showAlarmNotification(
         context: Context,
         title: String,
-        message: String,
+        message: String?,
         notifId: Int
     ) {
 
@@ -96,6 +95,7 @@ class AlarmReceiver : BroadcastReceiver() {
             builder.setChannelId(CHANNEL_ID)
             notificationManagerCompat.createNotificationChannel(channel)
         }
+
         val notification = builder.build()
         notificationManagerCompat.notify(notifId, notification)
     }

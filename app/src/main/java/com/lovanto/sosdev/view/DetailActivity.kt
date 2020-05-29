@@ -23,9 +23,7 @@ import com.lovanto.sosdev.model.DataUsers
 import com.lovanto.sosdev.model.Favourite
 import com.lovanto.sosdev.viewModel.ViewPagerDetailAdapter
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.item_row_users.*
 import kotlinx.android.synthetic.main.item_row_users.username
-
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -53,14 +51,13 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         if (favourites != null) {
             setDataObject()
             isFavourite = true
-            val checked : Int = R.drawable.ic_favorite_black_24dp
+            val checked: Int = R.drawable.ic_favorite_black_24dp
             btn_fav.setImageResource(checked)
         } else {
             setData()
         }
 
         viewPagerConfig()
-
         btn_fav.setOnClickListener(this)
     }
 
@@ -71,7 +68,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.elevation = 0f
     }
 
-
     private fun setActionBarTitle(title: String) {
         if (supportActionBar != null) {
             supportActionBar!!.title = title
@@ -81,7 +77,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private fun setData() {
         val dataUser = intent.getParcelableExtra(EXTRA_DATA) as DataUsers
-        setActionBarTitle("Detail of "+dataUser.name.toString())
+        setActionBarTitle("Detail of " + dataUser.name.toString())
         name.text = dataUser.name.toString()
         username.text = dataUser.username.toString()
         company.text = dataUser.company.toString()
@@ -98,7 +94,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private fun setDataObject() {
         val favUser = intent.getParcelableExtra(EXTRA_NOTE) as Favourite
-        setActionBarTitle("Detail of "+favUser.name.toString())
+        setActionBarTitle("Detail of " + favUser.name.toString())
         name.text = favUser.name.toString()
         username.text = favUser.username.toString()
         company.text = favUser.company.toString()
@@ -113,8 +109,8 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-        val checked : Int = R.drawable.ic_favorite_black_24dp
-        val unChecked : Int = R.drawable.ic_favorite_border_black_24dp
+        val checked: Int = R.drawable.ic_favorite_black_24dp
+        val unChecked: Int = R.drawable.ic_favorite_border_black_24dp
         if (view.id == R.id.btn_fav) {
             if (isFavourite) {
                 gitHelper.deleteById(favourites?.username.toString())
