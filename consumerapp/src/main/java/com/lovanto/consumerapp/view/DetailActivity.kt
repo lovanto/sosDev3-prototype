@@ -10,18 +10,13 @@ import com.lovanto.consumerapp.viewModel.ViewPagerDetailAdapter
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.item_row_users.username
 
-
-class DetailActivity : AppCompatActivity(){
+class DetailActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_DATA = "extra_data"
-        const val EXTRA_FAV = "extra_data"
         const val EXTRA_NOTE = "extra_note"
         const val EXTRA_POSITION = "extra_position"
     }
 
-    private var isFavourite = false
-    private var favourites: Favourite? = null
     private lateinit var imageAvatar: String
 
     @SuppressLint("SetTextI18n")
@@ -40,7 +35,6 @@ class DetailActivity : AppCompatActivity(){
         supportActionBar?.elevation = 0f
     }
 
-
     private fun setActionBarTitle(title: String) {
         if (supportActionBar != null) {
             supportActionBar!!.title = title
@@ -50,7 +44,7 @@ class DetailActivity : AppCompatActivity(){
     @SuppressLint("SetTextI18n")
     private fun setDataObject() {
         val favUser = intent.getParcelableExtra(EXTRA_NOTE) as Favourite
-        setActionBarTitle("Detail of "+favUser.name.toString())
+        setActionBarTitle("Detail of " + favUser.name.toString())
         name.text = favUser.name.toString()
         username.text = favUser.username.toString()
         company.text = favUser.company.toString()

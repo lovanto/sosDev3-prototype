@@ -2,9 +2,9 @@ package com.lovanto.consumerapp.view
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.lovanto.consumerapp.R
 import com.lovanto.consumerapp.alarm.AlarmReceiver
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -30,7 +30,6 @@ class SettingActivity : AppCompatActivity() {
         mSharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
         setSwitch()
-
         swDaily.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 alarmReceiver.setDailyReminder(
@@ -57,7 +56,6 @@ class SettingActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
-
         return super.onOptionsItemSelected(item)
     }
 }

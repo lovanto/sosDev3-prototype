@@ -2,13 +2,13 @@ package com.lovanto.consumerapp.view
 
 import android.content.Intent
 import android.database.ContentObserver
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lovanto.consumerapp.R
@@ -75,13 +75,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.settingMenu -> {
                 val i = Intent(this, SettingActivity::class.java)
                 startActivity(i)
-                return true
+                true
             }
-            else -> return true
+            else -> true
         }
     }
 
@@ -89,7 +89,13 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.Main) {
             progressBarFav.visibility = View.VISIBLE
             val deferredNotes = async(Dispatchers.IO) {
-                val cursor = contentResolver?.query(DatabaseSosDev.FavColumns.CONTENT_URI, null, null, null, null)
+                val cursor = contentResolver?.query(
+                    CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    null
+                )
                 MappingHelper.mapCursorToArrayList(cursor)
             }
             val favData = deferredNotes.await()
