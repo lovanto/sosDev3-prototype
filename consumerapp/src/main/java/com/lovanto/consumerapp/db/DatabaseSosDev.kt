@@ -23,9 +23,9 @@ object DatabaseSosDev {
             const val FAVOURITE = "isFav"
 
             val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
-                    .authority(AUTHORITY)
-                    .appendPath(TABLE_NAME)
-                    .build()
+                .authority(AUTHORITY)
+                .appendPath(TABLE_NAME)
+                .build()
         }
 
     }

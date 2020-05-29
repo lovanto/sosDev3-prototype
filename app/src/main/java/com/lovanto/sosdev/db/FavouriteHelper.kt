@@ -16,8 +16,8 @@ class FavouriteHelper(context: Context) {
     companion object {
         private const val DATABASE_TABLE = TABLE_NAME
         private var INSTANCE: FavouriteHelper? = null
-        fun getInstance(context: Context): FavouriteHelper = INSTANCE?: synchronized(this){
-            INSTANCE?: FavouriteHelper(context)
+        fun getInstance(context: Context): FavouriteHelper = INSTANCE ?: synchronized(this) {
+            INSTANCE ?: FavouriteHelper(context)
         }
     }
 
@@ -28,33 +28,33 @@ class FavouriteHelper(context: Context) {
 
     fun close() {
         dataBaseHelper.close()
-
         if (database.isOpen)
             database.close()
     }
 
     fun queryAll(): Cursor {
         return database.query(
-                DATABASE_TABLE,
-                null,
-                null,
-                null,
-                null,
-                null,
-                "$USERNAME DESC"
+            DATABASE_TABLE,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "$USERNAME DESC"
         )
     }
 
     fun queryById(id: String): Cursor {
         return database.query(
-                DATABASE_TABLE,
-                null,
-                "$USERNAME = ?",
-                arrayOf(id),
-                null,
-                null,
-                null,
-                null)
+            DATABASE_TABLE,
+            null,
+            "$USERNAME = ?",
+            arrayOf(id),
+            null,
+            null,
+            null,
+            null
+        )
     }
 
     fun insert(values: ContentValues?): Long {

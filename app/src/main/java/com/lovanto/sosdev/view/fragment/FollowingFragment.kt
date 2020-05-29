@@ -25,7 +25,6 @@ class FollowingFragment : Fragment() {
 
     companion object {
         private val TAG = FollowingFragment::class.java.simpleName
-        const val EXTRA_DATA = "extra_data"
     }
 
     private var listData: ArrayList<DataUsers> = ArrayList()
@@ -48,10 +47,12 @@ class FollowingFragment : Fragment() {
 
         favourites = activity!!.intent.getParcelableExtra(DetailActivity.EXTRA_NOTE)
         if (favourites != null) {
-            dataUser = activity!!.intent.getParcelableExtra(FollowersFragment.EXTRA_NOTE) as Favourite
+            dataUser =
+                activity!!.intent.getParcelableExtra(FollowersFragment.EXTRA_NOTE) as Favourite
             getDataGit(dataUser.username.toString())
         } else {
-            dataUser2 = activity!!.intent.getParcelableExtra(FollowersFragment.EXTRA_DATA) as DataUsers
+            dataUser2 =
+                activity!!.intent.getParcelableExtra(FollowersFragment.EXTRA_DATA) as DataUsers
             getDataGit(dataUser2.username.toString())
         }
     }

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.FavActivity"
-    android:gravity="center">
+    android:gravity="center"
+    tools:context=".view.FavActivity">
 
     <ProgressBar
         android:id="@+id/progressBarFav"
