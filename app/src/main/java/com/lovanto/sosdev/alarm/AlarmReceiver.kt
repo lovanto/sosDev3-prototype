@@ -12,7 +12,6 @@ import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.lovanto.sosdev.R
-import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
 
@@ -21,8 +20,8 @@ class AlarmReceiver : BroadcastReceiver() {
         const val EXTRA_MESSAGE = "message"
         const val EXTRA_TYPE = "type"
 
-        private const val ID_DAILY = 100
-        private const val TIME_DAILY = "09:00" //time alarm
+        const val ID_DAILY = 100
+        const val TIME_DAILY = "13:20" //time alarm
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -31,30 +30,6 @@ class AlarmReceiver : BroadcastReceiver() {
         val notifId = 100
 
         showAlarmNotification(context, title, message, notifId)
-    }
-
-    fun setDailyReminder(context: Context, type: String, message: String) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmReceiver::class.java)
-        intent.putExtra(EXTRA_MESSAGE, message)
-        intent.putExtra(EXTRA_TYPE, type)
-        val timeArray =
-            TIME_DAILY.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
-        calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
-        calendar.set(Calendar.SECOND, 0)
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            ID_DAILY, intent, 0
-        )
-        alarmManager.setInexactRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
-        )
-        Toast.makeText(context, "Daily reminder set up", Toast.LENGTH_SHORT).show()
     }
 
     fun cancelAlarm(context: Context, type: String) {
