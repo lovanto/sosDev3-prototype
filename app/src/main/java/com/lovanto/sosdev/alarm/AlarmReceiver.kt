@@ -12,6 +12,8 @@ import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.lovanto.sosdev.R
+import com.lovanto.sosdev.view.MainActivity
+import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
 
@@ -20,8 +22,8 @@ class AlarmReceiver : BroadcastReceiver() {
         const val EXTRA_MESSAGE = "message"
         const val EXTRA_TYPE = "type"
 
-        const val ID_DAILY = 100
-        const val TIME_DAILY = "13:20" //time alarm
+        private const val ID_DAILY = 100
+        private const val TIME_DAILY = "09:00" //time alarm
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -30,6 +32,31 @@ class AlarmReceiver : BroadcastReceiver() {
         val notifId = 100
 
         showAlarmNotification(context, title, message, notifId)
+    }
+
+    fun setDailyReminder(context: Context, type: String, message: String) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.putExtra(EXTRA_MESSAGE, message)
+        intent.putExtra(EXTRA_TYPE, type)
+        val timeArray =
+            TIME_DAILY.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
+        calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
+        calendar.set(Calendar.SECOND, 0)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            ID_DAILY, intent, PendingIntent.FLAG_ONE_SHOT
+        )
+        alarmManager.setInexactRepeating(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent
+        )
+        Toast.makeText(context, "Daily reminder set up", Toast.LENGTH_SHORT).show()
     }
 
     fun cancelAlarm(context: Context, type: String) {
@@ -49,17 +76,23 @@ class AlarmReceiver : BroadcastReceiver() {
         notifId: Int
     ) {
 
-        val CHANNEL_ID = "Channel_1"
-        val CHANNEL_NAME = "MyMovieCatalogue Channel"
+        val CHANNEL_ID = "lovanto"
+        val CHANNEL_NAME = "daily notif"
+
+        val intent = Intent(context, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val pendingIntent = PendingIntent.getActivity(context, 0,
+            intent,PendingIntent.FLAG_ONE_SHOT)
 
         val notificationManagerCompat =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_play_circle_filled_white_24dp)
             .setContentTitle(title)
             .setContentText(message)
-            .setSound(alarmSound)
+            .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(

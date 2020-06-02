@@ -1,22 +1,13 @@
 package com.lovanto.sosdev.view
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.lovanto.sosdev.R
 import com.lovanto.sosdev.alarm.AlarmReceiver
-import com.lovanto.sosdev.alarm.AlarmReceiver.Companion.EXTRA_MESSAGE
-import com.lovanto.sosdev.alarm.AlarmReceiver.Companion.EXTRA_TYPE
-import com.lovanto.sosdev.alarm.AlarmReceiver.Companion.ID_DAILY
-import com.lovanto.sosdev.alarm.AlarmReceiver.Companion.TIME_DAILY
 import kotlinx.android.synthetic.main.activity_setting.*
-import java.util.*
 
 class SettingActivity : AppCompatActivity() {
 
@@ -40,7 +31,7 @@ class SettingActivity : AppCompatActivity() {
         setSwitch()
         swDaily.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                setDailyReminder(
+                alarmReceiver.setDailyReminder(
                     this,
                     AlarmReceiver.TYPE_DAILY,
                     getString(R.string.daily_message)
@@ -60,30 +51,6 @@ class SettingActivity : AppCompatActivity() {
         val editor = mSharedPreferences.edit()
         editor.putBoolean(key, value)
         editor.apply()
-    }
-
-    fun setDailyReminder(context: Context, type: String, message: String) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra(EXTRA_MESSAGE, message)
-        intent.putExtra(EXTRA_TYPE, type)
-        val timeArray =
-            TIME_DAILY.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
-        calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
-        calendar.set(Calendar.SECOND, 0)
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            ID_DAILY, intent, 0
-        )
-        alarmManager.setInexactRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
-        )
-        Toast.makeText(this, "Daily reminder set up", Toast.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
