@@ -47,6 +47,7 @@ class FollowersFragment : Fragment() {
         adapter = ListDataFollowersAdapter(listData)
         listData.clear()
 
+        // if the data is get from SQLite database will do the if statement and when the data from GITHUB API will go to else statement
         favourites = activity!!.intent.getParcelableExtra(DetailActivity.EXTRA_NOTE)
         if (favourites != null) {
             dataUser = activity!!.intent.getParcelableExtra(EXTRA_NOTE) as Favourite
@@ -57,6 +58,7 @@ class FollowersFragment : Fragment() {
         }
     }
 
+    // this one get all data from GITHUB API and will be use for get the detail of user on the function getDataGitDetail
     private fun getDataGit(id: String) {
         progressBarFollowers.visibility = View.VISIBLE
         val client = AsyncHttpClient()
@@ -105,6 +107,7 @@ class FollowersFragment : Fragment() {
         })
     }
 
+    // from the function getDataGit will run this func for get the detail of user and save it to DataUsers as parcel
     private fun getDataGitDetail(id: String) {
         progressBarFollowers.visibility = View.VISIBLE
         val client = AsyncHttpClient()
@@ -169,6 +172,7 @@ class FollowersFragment : Fragment() {
         })
     }
 
+    // for showing data who get from func getDataGitDetail
     private fun showRecyclerList() {
         recycleViewFollowers.layoutManager = LinearLayoutManager(activity)
         val listDataAdapter =

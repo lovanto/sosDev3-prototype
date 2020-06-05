@@ -35,6 +35,7 @@ class FavouriteProvider : ContentProvider() {
         return true
     }
 
+    // choose which one method query will used for
     override fun query(
         uri: Uri,
         strings: Array<String>?,
@@ -42,13 +43,11 @@ class FavouriteProvider : ContentProvider() {
         strings1: Array<String>?,
         s1: String?
     ): Cursor? {
-        val cursor: Cursor?
-        when (sUriMatcher.match(uri)) {
-            FAV -> cursor = favHelper.queryAll()
-            FAV_ID -> cursor = favHelper.queryById(uri.lastPathSegment.toString())
-            else -> cursor = null
+        return when (sUriMatcher.match(uri)) {
+            FAV -> favHelper.queryAll() // get all data
+            FAV_ID -> favHelper.queryById(uri.lastPathSegment.toString()) // get data by id
+            else -> null
         }
-        return cursor
     }
 
     override fun getType(uri: Uri): String? {

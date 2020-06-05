@@ -30,7 +30,7 @@ class FavActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fav)
-        setActionBarTitle("Favourite Users")
+        setActionBarTitle()
 
         recycleViewFav.layoutManager = LinearLayoutManager(this)
         recycleViewFav.setHasFixedSize(true)
@@ -58,12 +58,14 @@ class FavActivity : AppCompatActivity() {
         }
     }
 
-    private fun setActionBarTitle(title: String) {
+    // change action bar title
+    private fun setActionBarTitle() {
         if (supportActionBar != null) {
-            supportActionBar!!.title = title
+            supportActionBar?.title = "Favourite Users"
         }
     }
 
+    // get data and set it to adapter from SQLite database
     private fun loadNotesAsync() {
         GlobalScope.launch(Dispatchers.Main) {
             progressBarFav.visibility = View.VISIBLE
@@ -77,7 +79,7 @@ class FavActivity : AppCompatActivity() {
                 adapter.listNotes = favData
             } else {
                 adapter.listNotes = ArrayList()
-                showSnackbarMessage("Tidak ada data saat ini")
+                showSnackbarMessage()
             }
         }
     }
@@ -87,10 +89,11 @@ class FavActivity : AppCompatActivity() {
         outState.putParcelableArrayList(EXTRA_STATE, adapter.listNotes)
     }
 
-    private fun showSnackbarMessage(message: String) {
-        Snackbar.make(recycleViewFav, message, Snackbar.LENGTH_SHORT).show()
+    private fun showSnackbarMessage() {
+        Snackbar.make(recycleViewFav, "Tidak ada data saat ini", Snackbar.LENGTH_SHORT).show()
     }
 
+    // run this func when open again for refresh data
     override fun onResume() {
         super.onResume()
         loadNotesAsync()

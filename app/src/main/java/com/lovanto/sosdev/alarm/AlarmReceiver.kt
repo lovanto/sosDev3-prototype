@@ -7,7 +7,6 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.media.RingtoneManager
 import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
@@ -23,17 +22,16 @@ class AlarmReceiver : BroadcastReceiver() {
         const val EXTRA_TYPE = "type"
 
         private const val ID_DAILY = 100
-        private const val TIME_DAILY = "09:00" //time alarm
+        private const val TIME_DAILY = "09:00" // set the alarm time here
     }
 
+    // when get receive data alarm/notif call this function to make and show the notification
     override fun onReceive(context: Context, intent: Intent) {
         val message = intent.getStringExtra(EXTRA_MESSAGE)
-        val title = TYPE_DAILY
-        val notifId = 100
-
-        showAlarmNotification(context, title, message, notifId)
+        showAlarmNotification(context, message)
     }
 
+    // this one will always called when the switch on setting is ON
     fun setDailyReminder(context: Context, type: String, message: String) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
@@ -59,7 +57,8 @@ class AlarmReceiver : BroadcastReceiver() {
         Toast.makeText(context, "Daily reminder set up", Toast.LENGTH_SHORT).show()
     }
 
-    fun cancelAlarm(context: Context, type: String) {
+    // this one will always called when the switch on setting is OFF
+    fun cancelAlarm(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
         val requestCode = ID_DAILY
@@ -69,26 +68,27 @@ class AlarmReceiver : BroadcastReceiver() {
         Toast.makeText(context, "Reminder cancelled", Toast.LENGTH_SHORT).show()
     }
 
+    // here you can set much think for your notification will be like what
     private fun showAlarmNotification(
         context: Context,
-        title: String,
-        message: String?,
-        notifId: Int
+        message: String?
     ) {
 
-        val CHANNEL_ID = "lovanto"
-        val CHANNEL_NAME = "daily notif"
+        val channelId = "lovanto"
+        val channelName = "daily notif"
 
         val intent = Intent(context, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(context, 0,
-            intent,PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(
+            context, 0,
+            intent, PendingIntent.FLAG_ONE_SHOT
+        )
 
         val notificationManagerCompat =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+        val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.ic_play_circle_filled_white_24dp)
-            .setContentTitle(title)
+            .setContentTitle("Daily Reminder")
             .setContentText(message)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -96,16 +96,16 @@ class AlarmReceiver : BroadcastReceiver() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                CHANNEL_ID,
-                CHANNEL_NAME,
+                channelId,
+                channelName,
                 NotificationManager.IMPORTANCE_DEFAULT
             )
-            builder.setChannelId(CHANNEL_ID)
+            builder.setChannelId(channelId)
             notificationManagerCompat.createNotificationChannel(channel)
         }
 
         val notification = builder.build()
-        notificationManagerCompat.notify(notifId, notification)
+        notificationManagerCompat.notify(100, notification)
     }
 
 }

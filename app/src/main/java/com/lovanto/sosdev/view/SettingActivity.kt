@@ -37,9 +37,9 @@ class SettingActivity : AppCompatActivity() {
                     getString(R.string.daily_message)
                 )
             } else {
-                alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_DAILY)
+                alarmReceiver.cancelAlarm(this)
             }
-            saveChange(DAILY, isChecked)
+            saveChange(isChecked)
         }
     }
 
@@ -47,9 +47,10 @@ class SettingActivity : AppCompatActivity() {
         swDaily.isChecked = mSharedPreferences.getBoolean(DAILY, false)
     }
 
-    private fun saveChange(key: String, value: Boolean) {
+    // to make the setting can't change when close app
+    private fun saveChange(value: Boolean) {
         val editor = mSharedPreferences.edit()
-        editor.putBoolean(key, value)
+        editor.putBoolean(DAILY, value)
         editor.apply()
     }
 

@@ -28,6 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_search"
         app:layout_constraintVertical_bias="0.53"
-        tools:listitem="@layout/item_row_users" />
+        tools:listitem="@layout/item_row_users"
+        tools:ignore="UnknownIdInLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

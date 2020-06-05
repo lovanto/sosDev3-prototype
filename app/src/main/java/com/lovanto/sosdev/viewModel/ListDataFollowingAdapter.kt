@@ -62,7 +62,7 @@ class ListDataFollowingAdapter(listData: ArrayList<DataUsers>) :
         holder.followers.text = data.followers.toString().trim()
         holder.following.text = data.following.toString().trim()
         holder.itemView.setOnClickListener {
-            //DO NOTHING
+            //DO NOTHING CAUSE ALREADY SETTING ON ADAPTER
         }
     }
 }

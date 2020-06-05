@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    // menu on click setting
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.favouriteMenu -> {
@@ -65,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // searching data from GITHUB API when enter clicked
     private fun searchData() {
         user_search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -83,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // using it for customizing your recyclerView
     private fun recyclerViewConfig() {
         recycleView.layoutManager = LinearLayoutManager(recycleView.context)
         recycleView.setHasFixedSize(true)
@@ -94,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    // from the function getDataGit will run this func for get the detail of user and save it to DataUsers as parcel
     private fun getDataGitDetail(id: String) {
         progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
@@ -160,6 +164,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    // this one get all data from GITHUB API and will be use for get the detail of user when the username like "what user search" on the function getDataGitDetail
     private fun getDataGitSearch(id: String) {
         progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
@@ -211,7 +216,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setActionBarTitle(title: String) {
         if (supportActionBar != null) {
-            supportActionBar!!.title = title
+            supportActionBar?.title = title
         }
     }
 

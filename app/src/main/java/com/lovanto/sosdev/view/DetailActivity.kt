@@ -47,6 +47,8 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         gitHelper = FavouriteHelper.getInstance(applicationContext)
         gitHelper.open()
 
+        // if the data is get from SQLite database will do the if statement and when the data from GITHUB API will go to else statement
+        // also check is favourite or not
         favourites = intent.getParcelableExtra(EXTRA_NOTE)
         if (favourites != null) {
             setDataObject()
@@ -61,6 +63,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         btn_fav.setOnClickListener(this)
     }
 
+    // view pager settings
     private fun viewPagerConfig() {
         val viewPagerDetailAdapter = ViewPagerDetailAdapter(this, supportFragmentManager)
         view_pager.adapter = viewPagerDetailAdapter
@@ -68,12 +71,14 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.elevation = 0f
     }
 
+    // to make custom title bar
     private fun setActionBarTitle(title: String) {
         if (supportActionBar != null) {
             supportActionBar!!.title = title
         }
     }
 
+    // set the data to view from GITHUB API
     @SuppressLint("SetTextI18n")
     private fun setData() {
         val dataUser = intent.getParcelableExtra(EXTRA_DATA) as DataUsers
@@ -91,6 +96,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         imageAvatar = dataUser.avatar.toString()
     }
 
+    // set data to view form SQLite database
     @SuppressLint("SetTextI18n")
     private fun setDataObject() {
         val favUser = intent.getParcelableExtra(EXTRA_NOTE) as Favourite
@@ -108,6 +114,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         imageAvatar = favUser.avatar.toString()
     }
 
+    // on click buttton will call this func, but this one just only have for favourite button
     override fun onClick(view: View) {
         val checked: Int = R.drawable.ic_favorite_black_24dp
         val unChecked: Int = R.drawable.ic_favorite_border_black_24dp
@@ -147,6 +154,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    // this func is running when the view of detail is not showing to delete the view and when open again will get the newest data
     override fun onDestroy() {
         super.onDestroy()
         gitHelper.close()

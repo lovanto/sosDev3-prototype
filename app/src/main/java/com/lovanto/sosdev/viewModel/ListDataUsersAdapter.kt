@@ -87,6 +87,7 @@ class ListDataUsersAdapter(private var listData: ArrayList<DataUsers>) :
         }
     }
 
+    // this one is call when user using search
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {

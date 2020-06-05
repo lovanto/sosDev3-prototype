@@ -23,14 +23,12 @@ internal class DatabaseHelper(context: Context) :
                 " ${DatabaseSosDev.FavColumns.FAVOURITE} TEXT NOT NULL)"
     }
 
+    // create the SQLite database table
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(SQL_CREATE_TABLE_NOTE)
     }
 
-    /*
-    Method onUpgrade akan di panggil ketika terjadi perbedaan versi
-    Gunakan method onUpgrade untuk melakukan proses migrasi data
-     */
+    // if the table of database is exist, this function will delete it
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)

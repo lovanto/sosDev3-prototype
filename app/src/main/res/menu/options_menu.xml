@@ -6,15 +6,17 @@
         android:icon="@drawable/ic_more_vert_black_24dp"
         android:title=""
         app:showAsAction="always">
-    <menu>
-        <item android:id="@+id/favouriteMenu"
-            android:title="@string/favourite"
-            app:showAsAction="ifRoom"
-            android:icon = "@drawable/ic_favorite_black_24dp"/>
-        <item android:id="@+id/settingMenu"
-            android:title="@string/setting"
-            app:showAsAction="ifRoom"
-            android:icon = "@drawable/ic_settings_black_24dp"/>
-    </menu>
+        <menu>
+            <item
+                android:id="@+id/favouriteMenu"
+                android:icon="@drawable/ic_favorite_black_24dp"
+                android:title="@string/favourite"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/settingMenu"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="@string/setting"
+                app:showAsAction="ifRoom" />
+        </menu>
     </item>
 </menu>

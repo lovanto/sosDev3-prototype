@@ -38,6 +38,7 @@ class FavouriteAdapter(private val activity: Activity) :
 
     override fun getItemCount(): Int = this.listNotes.size
 
+    // set view data to adapter and set on click too
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(fav: Favourite) {
             with(itemView) {
